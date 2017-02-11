@@ -1,3 +1,90 @@
 <html>
-<canvas id="myChart" width="400" height="400"></canvas>
+<canvas id="myChart" width="200" height="200"></canvas>
+<script src="js/node_modules/moment/moment.js"></script>
+<script src="js/node_modules/chart.js/dist/Chart.min.js"></script>
+<script>
+var ctx = document.getElementById("myChart");
+var chartData = null;
+
+drawChart(ctx, chartData);
+
+function drawChart(ctx, chartData) {
+	var myChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6'],
+			datasets: [
+				{
+					type: 'bar',
+					label: 'Bar Component',
+					yAxisID: "A",
+					data: [10, 20, 30, 25, 15, 5],
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)',
+						'rgba(255, 206, 86, 0.2)',
+					],
+					borderColor: [
+						'rgba(255,99,132,1)',
+						'rgba(54, 162, 235, 1)',
+						'rgba(255, 206, 86, 1)',
+					],
+					borderWidth: 1
+				},
+				{
+					type: 'line',
+					label: 'Line Component',
+					yAxisID: "B",
+					data: [10, 30, 60, 85, 100, 105],
+					borderColor: 'rgba(128,128,128,1)',
+					borderWidth: 1,
+					fill: false
+				}
+			]
+		},
+		options: {
+			layout: {
+				padding: 50
+			},
+			scales: {
+				yAxes: [
+					{
+						id: "A",
+						type: "linear",
+						position: "left",
+						ticks: {
+							beginAtZero:true,
+							max: 60
+						}
+					},
+					{
+						id: "B",
+						type: "linear",
+						position: "right",
+						ticks: {
+							beginAtZero:true
+						}
+					}
+				]
+			},
+			maintainAspectRatio: false
+		}
+	});
+}
+
+function httpGetAsync(theUrl, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            callback(xmlHttp.responseText);
+		}
+		else {
+			console.log(xmlHttp);
+		}
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
+}
+</script>
 </html>
